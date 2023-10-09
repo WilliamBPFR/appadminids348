@@ -11,13 +11,12 @@ import { Usuario } from '../Interfaces/usuario';
   providedIn: 'root'
 })
 export class UsuarioService {
-  private urlApi:string = environment.endpoint + "Usuario/"
+  private urlApi:string = environment.endpoint + "Empleado/"
 
   constructor(private http:HttpClient) { }
 
   iniciarSesion(request:Login):Observable<ResponseApi>{
-
-    return this.http.post<ResponseApi>(`${this.urlApi}IniciarSesion`,request)
+    return this.http.post<ResponseApi>(`${this.urlApi}LoginUsuario`,request)
   }
 
   lista():Observable<ResponseApi>{
