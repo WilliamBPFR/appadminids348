@@ -56,7 +56,7 @@ export class VentaComponent implements OnInit {
       next: (data) => {
         if(data.status){
           const lista = data.value as Producto[];
-          this.listaProductos = lista.filter(p => p.esActivo == 1 && p.stock > 0);
+          this.listaProductos = lista.filter(p => p.esActivo == 1 && p.cant_stock > 0);
         }
           
       },
@@ -83,7 +83,7 @@ export class VentaComponent implements OnInit {
 
   agregarProductoParaVenta(){
     const _cantidad:number = this.formularioProductoVenta.value.cantidad;
-    const _precio:number = parseFloat(this.productoSeleccionado.precio);
+    const _precio:number = (this.productoSeleccionado.precio);
     const _total:number = _cantidad * _precio;
     this.totalPagar = this.totalPagar + _total;
 

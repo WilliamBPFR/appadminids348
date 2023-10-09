@@ -1,4 +1,4 @@
 export interface Login {
-    correo:string,
-    clave:string
+    email:string,
+    hash_password:string
 }

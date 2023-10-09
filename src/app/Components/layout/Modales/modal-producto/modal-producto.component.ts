@@ -8,6 +8,7 @@ import { Producto } from 'src/app/Interfaces/producto';
 import { CategoriaService } from 'src/app/Services/categoria.service';
 import { ProductoService } from 'src/app/Services/producto.service';
 import { UtilidadService } from 'src/app/Reutilizable/utilidad.service';
+import { raceWith } from 'rxjs';
 
 @Component({
   selector: 'app-modal-producto',
@@ -32,7 +33,7 @@ export class ModalProductoComponent implements OnInit {
       this.formularioProducto = this.fb.group({
         nombre:['',Validators.required],
         idCategoria:['',Validators.required],
-        stock:['',Validators.required],
+        cant_stock:['',Validators.required],
         precio:['',Validators.required],
         esActivo:['1',Validators.required],
       });
@@ -44,6 +45,8 @@ export class ModalProductoComponent implements OnInit {
 
       this._categoriaServicio.lista().subscribe({
         next: (data) => {
+          console.log(data.status)
+          console.log(data.value)
           if(data.status)
                 this.listaCategorias = data.value;
         },
@@ -58,9 +61,10 @@ export class ModalProductoComponent implements OnInit {
       this.formularioProducto.patchValue({
          nombre: this.datosProducto.nombre,
          idCategoria: this.datosProducto.idCategoria,
-         stock: this.datosProducto.stock,
+         cant_stock: this.datosProducto.cant_stock,
          precio: this.datosProducto.precio,
-        esActivo:this.datosProducto.esActivo.toString()
+         color: this.datosProducto.color,
+        esActivo:this.datosProducto.esActivo
       })
     }
 
@@ -73,9 +77,10 @@ export class ModalProductoComponent implements OnInit {
       idProducto: this.datosProducto == null ? 0 : this.datosProducto.idProducto,
       nombre: this.formularioProducto.value.nombre,
       idCategoria: this.formularioProducto.value.idCategoria,
-      descripcionCategoria: "",
-      stock: this.formularioProducto.value.stock,
+      nombreCategoria: "",
+      cant_stock: this.formularioProducto.value.cant_stock,
       precio: this.formularioProducto.value.precio,
+      color: this.formularioProducto.value.color,
       esActivo: parseInt(this.formularioProducto.value.esActivo)
     }
 

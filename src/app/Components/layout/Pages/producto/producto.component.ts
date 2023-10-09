@@ -16,7 +16,7 @@ import Swal from 'sweetalert2';
   styleUrls: ['./producto.component.css']
 })
 export class ProductoComponent implements OnInit, AfterViewInit {
-  columnasTabla:string[] = ['nombre','descripcionCategoria','stock','precio','estado','acciones'];
+  columnasTabla:string[] = ['nombre','nombreCategoria','cant_stock','precio','estado','acciones','color'];
   dataInicio:Producto[]=[];
   dataListaProductos = new MatTableDataSource(this.dataInicio);
   @ViewChild(MatPaginator) paginacionTabla! : MatPaginator;
@@ -30,6 +30,7 @@ export class ProductoComponent implements OnInit, AfterViewInit {
   obtenerProductos(){
     this._productoServicio.lista().subscribe({
       next: (data) => {
+        console.log(data.value)
         if(data.status){
           this.dataListaProductos.data = data.value;
         }else{
