@@ -1,7 +1,8 @@
-<mat-toolbar color="primary">
+<mat-toolbar style="background-color: #54428E;">
     <mat-toolbar-row>
 
-        <h1>TechVerse</h1>
+        <img src="../../../assets/4c1889c5-c87b-4b6e-bddc-4d37d7bee0f1.jpeg" style="max-height: 60px;" alt="">
+        <h1>CLOTHS SHOP</h1>
 
         <button mat-icon-button (click)="sidenav.toggle();">
             <mat-icon>menu</mat-icon>
@@ -24,7 +25,7 @@
 
             <!-- Los menu 1 a 1  -->
 
-            <!-- <mat-list-item routerLink="/pages/dashboard">
+            <mat-list-item routerLink="/pages/dashboard">
                 <mat-icon mat-list-icon>dashboard</mat-icon>
                 <div mat-line>DashBoard</div>
             </mat-list-item>
@@ -52,7 +53,7 @@
             <mat-list-item routerLink="/pages/reportes">
                 <mat-icon mat-list-icon>receipt</mat-icon>
                 <div mat-line>Reportes</div>
-            </mat-list-item> -->
+            </mat-list-item>
 
             <mat-list-item *ngFor="let menu of listaMenus" [routerLink]="menu.url">
                 <mat-icon mat-list-icon>{{menu.icono}}</mat-icon>

@@ -2,8 +2,9 @@ export interface Producto {
     idProducto: number,
     nombre: string,
     idCategoria: number,
-    descripcionCategoria: string,
-    stock: number,
-    precio: string,
-    esActivo: number
+    nombreCategoria: string,
+    cant_stock: number,
+    precio: number,
+    esActivo: number,
+    color:string
 }
