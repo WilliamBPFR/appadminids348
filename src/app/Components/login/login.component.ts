@@ -37,7 +37,7 @@ export class LoginComponent {
       email: this.formularioLogin.value.email,
       hash_password: this.formularioLogin.value.password
     }
-
+    this.router.navigate(["pages"]) //Navegando a otra pagina si todo sale bien
 
     //Usando el servicio y la api para iniciar sesion
     this._usuarioService.iniciarSesion(request).subscribe({
@@ -54,17 +54,16 @@ export class LoginComponent {
         this._utilidadService.mostrarAlerta(data.msg,"Opps!") //Mostrando alerta por si todo sale mal
         console.log(data.msg);
       }
+    //   },
+    //   complete: ()=>{
+    //     this.mostrarLoading = false;
+    //   },
+    //   error: ()=> {
+    //     this._utilidadService.mostrarAlerta("Error encontrado ","Opps!")
+    //     this.mostrarLoading = false;
+    //   }
 
-      },
-      complete: ()=>{
-        this.mostrarLoading = false;
-      },
-      error: ()=> {
-        this._utilidadService.mostrarAlerta("Error encontrado ","Opps!")
-        this.mostrarLoading = false;
-      }
-
-    });
+    // });
   }
 
 }
