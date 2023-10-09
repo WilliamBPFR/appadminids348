@@ -34,22 +34,26 @@ export class LoginComponent {
     this.mostrarLoading = true;
 
     const request:Login = { //Obtener en la variable request los valores de los input del LogIn
-      correo: this.formularioLogin.value.email,
-      clave: this.formularioLogin.value.password
+      email: this.formularioLogin.value.email,
+      hash_password: this.formularioLogin.value.password
     }
     this.router.navigate(["pages"]) //Navegando a otra pagina si todo sale bien
 
     //Usando el servicio y la api para iniciar sesion
-    // this._usuarioService.iniciarSesion(request).subscribe({
-    //   next:(data) => {
-    //     if(data.status){
-    //       this._utilidadService.guardarSesionUsuario(data.value);
-    //       this.router.navigate(["pages"]) //Navegando a otra pagina si todo sale bien
-    //     }
-    //     else{
-    //       this._utilidadService.mostrarAlerta("Usuario Invalido","Opps!") //Mostrando alerta por si todo sale mal
-    //     }
-
+    this._usuarioService.iniciarSesion(request).subscribe({
+      next:(data) => {
+      if(data.status == true){
+        if(data.value.sesion_iniciada){
+          this._utilidadService.guardarSesionUsuario(data.value.token);
+          this.router.navigate(["pages"]) //Navegando a otra pagina si todo sale bien
+        }
+        else{
+          this._utilidadService.mostrarAlerta("Usuario Invalido","Opps!") //Mostrando alerta por si todo sale mal
+        }
+      }else{
+        this._utilidadService.mostrarAlerta(data.msg,"Opps!") //Mostrando alerta por si todo sale mal
+        console.log(data.msg);
+      }
     //   },
     //   complete: ()=>{
     //     this.mostrarLoading = false;
