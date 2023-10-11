@@ -10,13 +10,13 @@ import { ResponseApi } from '../Interfaces/response-api';
 @Injectable({
   providedIn: 'root'
 })
-export class RolService {
-  private urlApi:string = environment.endpoint + "Empleado/"
+export class EstadoService {
+  private urlApi:string = environment.endpoint;
 
   constructor(private http:HttpClient) { }
 
   lista():Observable<ResponseApi>{
 
-    return this.http.get<ResponseApi>(`${this.urlApi}ListaCategoriaEmpleado`)
+    return this.http.get<ResponseApi>(`${this.urlApi}Estado/ListaEmpleadoEstado`)
   }
 }

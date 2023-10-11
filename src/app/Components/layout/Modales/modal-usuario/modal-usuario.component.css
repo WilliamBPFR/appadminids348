@@ -1,8 +1,28 @@
+
 mat-form-field{
     width: 100%;
-    margin: 10px 10px;
+    margin: 12px 12px;
 }
 
 form{
-    width: 350px;
+    width: 600px;
 }
+
+.prefix {
+    vertical-align: middle; /* Alinea verticalmente con el texto del input */
+    display: inline-block; /* Para permitir el ajuste vertical */
+}
+
+.custom-form-field {
+    width: 250px; /* Ajusta el ancho según tus necesidades */
+}
+
+.custom-input {
+    width: 80%; /* Ajusta el ancho según tus necesidades */
+    font-size: 14px; /* Ajusta el tamaño de fuente según tus necesidades */
+}
+
+.custom-toggle {
+    font-size: 14px; /* Ajusta el tamaño de fuente según tus necesidades */
+}
+

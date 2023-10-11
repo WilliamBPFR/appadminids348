@@ -4,40 +4,41 @@
 <!-- Modal para el formulario de registrar usuarios -->
 <mat-dialog-content>
     <form [formGroup]="formularioUsuario">
-        <mat-grid-list cols="1" rowHeight="80px">
+        <mat-grid-list cols="2" rowHeight="80px">
 
             <mat-grid-tile>
-
                 <mat-form-field appearance="outline">
-                    <mat-label>Nombre Completo</mat-label>
-                    <input matInput autocomplete="off" formControlName="nombreCompleto">
+                    <mat-label>Nombre</mat-label>
+                    <input matInput autocomplete="off" formControlName="nombre">
                     <mat-icon matSuffix>account-box</mat-icon>
                 </mat-form-field>
 
             </mat-grid-tile>
-
+            
             <mat-grid-tile>
 
+                <mat-form-field appearance="outline">
+                    <mat-label>Apellidos</mat-label>
+                    <input matInput autocomplete="off" formControlName="apellido">
+                    <mat-icon matSuffix>account-box</mat-icon>
+                </mat-form-field>
+
+            </mat-grid-tile>
+            
+            <mat-grid-tile>
                 <mat-form-field appearance="outline">
                     <mat-label>Correo</mat-label>
                     <input matInput autocomplete="off" formControlName="correo">
                     <mat-icon matSuffix>mail</mat-icon>
                 </mat-form-field>
-
             </mat-grid-tile>
 
             <mat-grid-tile>
-
                 <mat-form-field appearance="outline">
-                    <mat-label>Rol</mat-label>
-
-                    <mat-select formControlName="idRol">
-                        <mat-option *ngFor="let item of listaRoles" [value]="item.idRol">{{item.nombre}}</mat-option>
-                    </mat-select>
-
-                   
+                    <mat-label>Cedula</mat-label>
+                    <input matInput autocomplete="off" formControlName="cedula">
+                    <mat-icon matSuffix>perm_identity</mat-icon>
                 </mat-form-field>
-
             </mat-grid-tile>
 
             <mat-grid-tile>
@@ -51,25 +52,80 @@
                     (click)="ocultarPassword = !ocultarPassword" type="button">
                     <mat-icon matSuffix>{{ocultarPassword ? 'visibility_off':'visibility'}}</mat-icon>
                     </button>
+                </mat-form-field>
+            </mat-grid-tile>
 
-                    
+            <mat-grid-tile>
+
+                <mat-form-field  appearance="outline">
+                    <mat-label>Repetir Contraseña</mat-label>
+                    <input [type]="ocultarPassword2 ? 'password' : 'text'"
+                    formControlName="repetir_clave" matInput autocomplete="off">
+
+                    <button mat-icon-button matSuffix
+                    (click)="ocultarPassword2 = !ocultarPassword2" type="button">
+                    <mat-icon matSuffix>{{ocultarPassword2 ? 'visibility_off':'visibility'}}</mat-icon>
+                    </button>
+                </mat-form-field>
+            </mat-grid-tile>
+
+            <mat-grid-tile>
+                <mat-form-field appearance="outline">
+                    <mat-label>Salario (RD$)</mat-label>
+                    <input matInput autocomplete="off" formControlName="salario" type="text" inputmode="numeric" (focus)="mostrarPrefix = true" (blur)="mostrarPrefix = false" (input)="formularioUsuario.get('salario') && validarSalario(formularioUsuario.get('salario'))">
+                    <span matPrefix *ngIf="formularioUsuario.get('salario')?.value == null ? true : false || formularioUsuario.get('salario')?.touched || mostrarPrefix" >RD$&nbsp;</span>
+                    <mat-icon matSuffix>attach_money</mat-icon>
+                </mat-form-field>
+            </mat-grid-tile>
+
+            <mat-grid-tile>
+                <mat-form-field appearance="outline">
+                    <mat-label>Fecha de Nacimiento</mat-label>
+                    <input matInput autocomplete="off" formControlName="fecha_nac" [matDatepicker]="picker" [max]="fechaActual">
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
+            </mat-grid-tile>
+            
+            <mat-grid-tile>
+
+                <mat-form-field appearance="outline">
+                    <mat-label>Rol</mat-label>
+
+                    <mat-select formControlName="idRol">
+                        <mat-option *ngFor="let item of listaRoles" [value]="item.idCategoria">{{item.nombreCategoria}}</mat-option>
+                    </mat-select>
+
+                   
                 </mat-form-field>
 
+            </mat-grid-tile>
+
+            <mat-grid-tile>
+                <mat-form-field appearance="outline">
+                    <mat-label>Dirección</mat-label>
+                    <input matInput autocomplete="off" formControlName="Direccion">
+                    <mat-icon matSuffix>home</mat-icon>
+                </mat-form-field>
+            </mat-grid-tile>
+
+            <mat-grid-tile>
+                <mat-form-field appearance="outline">
+                    <mat-label>Teléfono</mat-label>
+                    <input matInput autocomplete="off" formControlName="telefono">
+                    <mat-icon matSuffix>phone</mat-icon>
+                </mat-form-field>
             </mat-grid-tile>
 
             <mat-grid-tile>
 
                 <mat-form-field appearance="outline">
                     <mat-label>Estado</mat-label>
-                    
 
-                    <mat-select formControlName="esActivo">
-                        <mat-option value="1">Activo</mat-option>
-                        <mat-option value="0">Inactivo</mat-option>
+                    <mat-select formControlName="idEstado">
+                        <mat-option *ngFor="let item of listaEstados" [value]="item.idEstadoEmpleado">{{item.descripcion}}</mat-option>
                     </mat-select>
-                    
 
-                    
                 </mat-form-field>
 
             </mat-grid-tile>
