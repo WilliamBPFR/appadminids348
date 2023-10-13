@@ -20,12 +20,12 @@ export class ProductoService {
     return this.http.get<ResponseApi>(`${this.urlApi}ListaProducto`)
   }
 
-  guardar(request:Producto):Observable<ResponseApi>{
-    return this.http.post<ResponseApi>(`${this.urlApi}Guardar`,request)
+  guardar(formdata:FormData):Observable<ResponseApi>{
+    return this.http.post<ResponseApi>(`${this.urlApi}CrearProducto`,formdata)
   }
 
-  editar(request:Producto):Observable<ResponseApi>{
-    return this.http.put<ResponseApi>(`${this.urlApi}EditarProducto`,request)
+  editar(formdata:FormData):Observable<ResponseApi>{
+    return this.http.put<ResponseApi>(`${this.urlApi}EditarProducto`,formdata)
   }
 
   eliminar(id:number):Observable<ResponseApi>{

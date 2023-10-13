@@ -22,7 +22,7 @@
                     <mat-label>Categoria</mat-label>
 
                     <mat-select formControlName="idCategoria">
-                        <mat-option *ngFor="let item of listaCategorias" [value]="item.idCategoria">{{item.nombre}}</mat-option>
+                        <mat-option *ngFor="let item of listaCategorias" [value]="item.idCategoria">{{item.descripcion}}</mat-option>
                     </mat-select>
 
                    
@@ -56,9 +56,9 @@
                     <mat-label>Estado</mat-label>
                     
 
-                    <mat-select formControlName="esActivo">
-                        <mat-option value="1">Activo</mat-option>
-                        <mat-option value="0">Inactivo</mat-option>
+                    <mat-select formControlName="idEstadoProductos">
+                        <mat-option value="0">Activo</mat-option>
+                        <mat-option value="1">Inactivo</mat-option>
                     </mat-select>
                     
 
@@ -76,6 +76,22 @@
                 </mat-form-field>
 
             </mat-grid-tile>
+
+            <mat-grid-tile>
+
+                <mat-form-field appearance="outline">
+                    <mat-label>size</mat-label>
+                    <input matInput autocomplete="off" formControlName="size" type="text">
+                    <mat-icon matSuffix>show_chart</mat-icon>
+                </mat-form-field>
+
+            </mat-grid-tile>
+
+            <mat-grid-tile>
+                <input type="file" (change)="onFileChange($event)" multiple>
+
+            </mat-grid-tile>
+            
 
         </mat-grid-list>
 

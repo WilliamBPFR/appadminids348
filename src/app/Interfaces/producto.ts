@@ -5,6 +5,7 @@ export interface Producto {
     nombreCategoria: string,
     cant_stock: number,
     precio: number,
-    esActivo: number,
-    color:string
+    idEstadoProductos: number,
+    color:string,
+    size:string
 }

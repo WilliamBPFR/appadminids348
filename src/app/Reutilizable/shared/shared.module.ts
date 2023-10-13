@@ -29,6 +29,7 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 
 import {MatNativeDateModule} from '@angular/material/core';
 import {MomentDateModule} from '@angular/material-moment-adapter';
+import { FileValidator } from 'ngx-material-file-input';
 
 @NgModule({
   declarations: [],
@@ -60,7 +61,8 @@ import {MomentDateModule} from '@angular/material-moment-adapter';
     MatAutocompleteModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    MomentDateModule
+    MomentDateModule,
+   
 
 
   ],

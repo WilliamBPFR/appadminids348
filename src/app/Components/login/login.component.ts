@@ -54,16 +54,17 @@ export class LoginComponent {
         this._utilidadService.mostrarAlerta(data.msg,"Opps!") //Mostrando alerta por si todo sale mal
         console.log(data.msg);
       }
-    //   },
-    //   complete: ()=>{
-    //     this.mostrarLoading = false;
-    //   },
-    //   error: ()=> {
-    //     this._utilidadService.mostrarAlerta("Error encontrado ","Opps!")
-    //     this.mostrarLoading = false;
-    //   }
+      },
+      complete: ()=>{
+        this.mostrarLoading = false;
+      },
+      error: ()=> {
+        this._utilidadService.mostrarAlerta("Error encontrado ","Opps!")
+        this.mostrarLoading = false;
+      }
 
-    // });
+    });
   }
 
 }
+    

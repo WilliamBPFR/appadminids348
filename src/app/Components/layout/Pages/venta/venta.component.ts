@@ -56,7 +56,7 @@ export class VentaComponent implements OnInit {
       next: (data) => {
         if(data.status){
           const lista = data.value as Producto[];
-          this.listaProductos = lista.filter(p => p.esActivo == 1 && p.cant_stock > 0);
+          this.listaProductos = lista.filter(p => p.idEstadoProductos == 1 && p.cant_stock > 0);
         }
           
       },
