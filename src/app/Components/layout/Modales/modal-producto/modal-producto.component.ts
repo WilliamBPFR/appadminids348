@@ -25,6 +25,7 @@ export class ModalProductoComponent implements OnInit {
   selectedFile: any = null;
  // Asegúrate de que coincida con el tipo de tu lista de categorías
   imagenes: File[] = []; 
+  base64Data: string[] = [];
 
   //images: FileList;
 
@@ -67,10 +68,17 @@ export class ModalProductoComponent implements OnInit {
   }
 
   onFileChange(event: any) {
-    const files = event.target.files;
-    if (files && files.length > 0) {
-      this.imagenes = Array.from(files);
-    }
+     this.imagenes[0] = event.target.files[0];
+
+      const reader = new FileReader();
+      reader.onload = (e:any  ) => {
+         this.base64Data.push(e.target.result);
+       
+      };
+
+      reader.readAsDataURL(this.imagenes[0])
+      
+    
   }
 
   ngOnInit(): void {
@@ -99,38 +107,40 @@ export class ModalProductoComponent implements OnInit {
         idProducto: this.datosProducto == null ? 0 : this.datosProducto.idProducto,
         nombre: this.formularioProducto.value.nombre,
         idCategoria: this.formularioProducto.value.idCategoria,
-        nombreCategoria: "",
+        descripcion: "",
         cant_stock: this.formularioProducto.value.cant_stock,
         precio: this.formularioProducto.value.precio,
         color: this.formularioProducto.value.color,
          size: this.formularioProducto.value.size,
-        idEstadoProductos: parseInt(this.formularioProducto.value.idEstadoProductos)
+        idEstadoProductos: parseInt(this.formularioProducto.value.idEstadoProductos),
+        imagenesGuardadas: this.base64Data
       };
 
      
     
 
     const formData = new FormData();
-    formData.append('IdProducto', (0).toString()); // Convertir el objeto Producto a JSON
-    formData.append('Nombre', _producto.nombre.toString());
-    formData.append('Precio', _producto.precio.toString());
-    formData.append('Descripcion', "Descripcion");
-    formData.append('IdCategoria', _producto.idCategoria.toString());
-    formData.append('NombreCategoria', _producto.nombreCategoria.toString());
-    formData.append('Color', _producto.color.toString());
-    formData.append('Size', _producto.size.toString());
-    formData.append('Descuento', (1).toString());
-    formData.append('IdEstadoProductos', _producto.idEstadoProductos.toString());
-    formData.append('NombreEstadoProductos', _producto.idEstadoProductos.toString());
-    formData.append('cant_stock', _producto.cant_stock.toString());
+    //formData.append('IdProducto', (0).toString()); // Convertir el objeto Producto a JSON
+    // formData.append('Nombre', _producto.nombre.toString());
+    // formData.append('Precio', _producto.precio.toString());
+    // formData.append('Descripcion', "Descripcion");
+    // formData.append('IdCategoria', _producto.idCategoria.toString());
+    // formData.append('NombreCategoria', _producto.nombreCategoria.toString());
+    // formData.append('Color', _producto.color.toString());
+    // formData.append('Size', _producto.size.toString());
+    // formData.append('Descuento', (1).toString());
+    // formData.append('IdEstadoProductos', _producto.idEstadoProductos.toString());
+    // formData.append('NombreEstadoProductos', _producto.idEstadoProductos.toString());
+    // formData.append('cant_stock', _producto.cant_stock.toString());
+    //formData.append('image', this.base64Data);
+    console.log(formData)
    
     // Agregar imágenes al FormData
-    for (let i = 0; i < this.imagenes.length; i++) {
-      formData.append('image', this.imagenes[i]);
-    }
+    
+
 console.log(formData)
     if(this.datosProducto == null){
-      this._productoServicio.guardar(formData).subscribe({
+      this._productoServicio.guardar(_producto).subscribe({
         next: (data) => {
           console.log(data.status);
           console.log(data.msg);
@@ -149,7 +159,7 @@ console.log(formData)
         }
       })
     }else{
-      this._productoServicio.editar(formData).subscribe({
+      this._productoServicio.editar(_producto).subscribe({
         next: (data) => {
           if(data.status){
             this._utilidadServicio.mostrarAlerta("El producto fue editado","Exito");
