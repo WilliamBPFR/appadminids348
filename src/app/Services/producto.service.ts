@@ -21,7 +21,7 @@ export class ProductoService {
   }
 
   guardar(request:Producto):Observable<ResponseApi>{
-    return this.http.post<ResponseApi>(`${this.urlApi}Guardar`,request)
+    return this.http.post<ResponseApi>(`${this.urlApi}CrearProducto`,request)
   }
 
   editar(request:Producto):Observable<ResponseApi>{
