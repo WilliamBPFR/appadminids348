@@ -4,34 +4,71 @@
 <!-- Modal para el formulario de registrar usuarios -->
 <mat-dialog-content>
     <form [formGroup]="formularioProducto">
-        <mat-grid-list cols="1" rowHeight="80px">
+        <mat-grid-list cols="2" rowHeight="80px">
+
+            <mat-grid-tile>
+                <mat-form-field appearance="outline">
+                    <mat-label>Nombre</mat-label>
+                    <input matInput autocomplete="off" formControlName="nombre">
+                    <mat-icon matSuffix>account-box</mat-icon>
+                </mat-form-field>
+            </mat-grid-tile>
+
+            <mat-grid-tile>
+                <mat-form-field appearance="outline">
+                    <mat-label>Precio (RD$)</mat-label>
+                    <input matInput autocomplete="off" formControlName="precio" type="text" inputmode="numeric" (focus)="mostrarPrefix = true" (blur)="mostrarPrefix = false" (input)="formularioProducto.get('salario') && validarSalario(formularioProducto.get('salario'))">
+                    <span matPrefix *ngIf="formularioProducto.get('salario')?.value == null ? true : false || formularioProducto.get('salario')?.touched || mostrarPrefix" >RD$&nbsp;</span>
+                    <mat-icon matSuffix>attach_money</mat-icon>
+                </mat-form-field>
+            </mat-grid-tile>
 
             <mat-grid-tile>
 
                 <mat-form-field appearance="outline">
-                    <mat-label>Nombre</mat-label>
-                    <input matInput autocomplete="off" formControlName="nombre">
+                    <mat-label>Descripción</mat-label>
+                    <input matInput autocomplete="off" formControlName="descripcion">
                     <mat-icon matSuffix>account-box</mat-icon>
                 </mat-form-field>
 
             </mat-grid-tile>
 
             <mat-grid-tile>
-
+                
                 <mat-form-field appearance="outline">
                     <mat-label>Categoria</mat-label>
-
                     <mat-select formControlName="idCategoria">
                         <mat-option *ngFor="let item of listaCategorias" [value]="item.idCategoria">{{item.descripcion}}</mat-option>
                     </mat-select>
-
-                   
                 </mat-form-field>
 
             </mat-grid-tile>
 
             <mat-grid-tile>
+                <mat-label>Color de la Prenda:  </mat-label>
+                <ngx-colors ngx-colors-trigger (change)="onColorChange($event,'CAMBIO')" acceptLabel="Aceptar" cancelLabel="Cancelar"></ngx-colors>
+                <mat-form-field>
+                    <input matInput [value]="leftColor" formControlName="color">
+                </mat-form-field>
+            </mat-grid-tile>
 
+            <mat-grid-tile>
+                <mat-form-field appearance="outline">
+                    <mat-label>Size</mat-label>
+                    <input matInput autocomplete="off" formControlName="Size">
+                    <mat-icon matSuffix>account-box</mat-icon>
+                </mat-form-field>
+            </mat-grid-tile>
+
+            <mat-grid-tile>
+                <mat-form-field appearance="outline">
+                    <mat-label>Descuento</mat-label>
+                    <input matInput autocomplete="off" formControlName="descuento">
+                    <mat-icon matSuffix>account-box</mat-icon>
+                </mat-form-field>
+            </mat-grid-tile>
+
+            <mat-grid-tile>
                 <mat-form-field appearance="outline">
                     <mat-label>Stock</mat-label>
                     <input matInput autocomplete="off" formControlName="cant_stock" type="number">
@@ -40,62 +77,43 @@
 
             </mat-grid-tile>
 
-            <mat-grid-tile>
-                
-                <mat-form-field appearance="outline">
-                    <mat-label>Precio</mat-label>
-                    <input matInput autocomplete="off" formControlName="precio">
-                    <mat-icon matSuffix>monetization_on</mat-icon>
-                </mat-form-field>
-
-            </mat-grid-tile>
 
             <mat-grid-tile>
-
-                <mat-form-field appearance="outline">
-                    <mat-label>Estado</mat-label>
-                    
-
-                    <mat-select formControlName="idEstadoProductos">
-                        <mat-option value="0">Activo</mat-option>
-                        <mat-option value="1">Inactivo</mat-option>
-                    </mat-select>
-                    
-
-                    
-                </mat-form-field>
-
-            </mat-grid-tile>
-
-            <mat-grid-tile>
-
-                <mat-form-field appearance="outline">
-                    <mat-label>color</mat-label>
-                    <input matInput autocomplete="off" formControlName="color">
-                    <mat-icon matSuffix>account-box</mat-icon>
-                </mat-form-field>
-
-            </mat-grid-tile>
-
-            <mat-grid-tile>
-
-                <mat-form-field appearance="outline">
-                    <mat-label>size</mat-label>
-                    <input matInput autocomplete="off" formControlName="size" type="text">
-                    <mat-icon matSuffix>show_chart</mat-icon>
-                </mat-form-field>
-
-            </mat-grid-tile>
-
-            <mat-grid-tile>
+            <mat-form-field appearance="outline">
+                <mat-label>Estado del Producto</mat-label>
+                <mat-select formControlName="idEstado">
+                    <mat-option *ngFor="let item of listaCategorias" [value]="item.idCategoria">{{item.descripcion}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </mat-grid-tile>
+            <mat-grid-tile colspan="2">
                 <input type="file" (change)="onFileChange($event)" multiple>
-
             </mat-grid-tile>
-            
 
-        </mat-grid-list>
+            <!-- <mat-grid-tile>
+                <div *ngFor="let image of imagenesSeleccionadas">
+                    <img [src]="image" alt="Vista previa de la imagen" width="100">
+                </div>
+            </mat-grid-tile>
+             -->
 
+             <mat-grid-tile colspan="2" class="image-gallery" rowHeight="500px"> 
+            </mat-grid-tile>
+          </mat-grid-list>
     </form>
+    <div>
+    <div class="image-gallery">
+        <button (click)="previousImage()" [disabled]="currentImageIndex === 0">
+            <i class="material-icons">keyboard_arrow_left</i> Anterior
+        </button>
+        <div *ngFor="let image of imagenesSeleccionadas; let i = index" class="image-container" [class.active]="i === currentImageIndex">
+            <img [src]="image" alt="Vista previa de la imagen" [class.hidden]="i !== currentImageIndex" (load)="onImageLoad(i)" width="400" height="400">
+        </div>
+        <button (click)="nextImage()" [disabled]="currentImageIndex === imagenesSeleccionadas.length - 1">
+            Siguiente <i class="material-icons">keyboard_arrow_right</i>
+        </button>
+    </div>
+</div>
 </mat-dialog-content>
 
 
