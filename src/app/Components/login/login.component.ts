@@ -6,6 +6,7 @@ import { Login } from 'src/app/Interfaces/login';
 import { UsuarioService } from 'src/app/Services/usuario.service';
 import { UtilidadService } from 'src/app/Reutilizable/utilidad.service';
 
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -21,7 +22,7 @@ export class LoginComponent {
     private fb:FormBuilder,
     private router:Router,
     private _usuarioService: UsuarioService,
-    private _utilidadService: UtilidadService
+    private _utilidadService: UtilidadService,
   ){
     this.formularioLogin = this.fb.group({
       email:['',Validators.required], //Hacer campos requeridos en el LogIn
@@ -37,13 +38,18 @@ export class LoginComponent {
       email: this.formularioLogin.value.email,
       hash_password: this.formularioLogin.value.password
     }
-    this.router.navigate(["pages"]) //Navegando a otra pagina si todo sale bien
+    // this.router.navigate(["pages"]) //Navegando a otra pagina si todo sale bien
     //Usando el servicio y la api para iniciar sesion
     this._usuarioService.iniciarSesion(request).subscribe({
       next:(data) => {
       if(data.status == true){
         if(data.value.sesion_iniciada){
+
           this._utilidadService.guardarSesionUsuario(data.value.token);
+          setTimeout(() => {
+            
+          }, 500);
+          
           this.router.navigate(["pages"]) //Navegando a otra pagina si todo sale bien
         }
         else{

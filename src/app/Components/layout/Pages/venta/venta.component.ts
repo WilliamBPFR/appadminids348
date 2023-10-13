@@ -15,6 +15,7 @@ import { UtilidadService } from 'src/app/Reutilizable/utilidad.service';
 import { Producto } from 'src/app/Interfaces/producto';
 import { Venta } from 'src/app/Interfaces/venta';
 import { DetalleVenta } from 'src/app/Interfaces/detalle-venta';
+import { NavigationService} from 'src/app/Services/navigation.service';
 
 import Swal from 'sweetalert2';
 
@@ -35,7 +36,8 @@ export class VentaComponent implements OnInit,AfterViewInit{
   constructor(
     private dialog: MatDialog,
     private _envioServicio:EnvioService,
-    private _utilidadServicio:UtilidadService
+    private _utilidadServicio:UtilidadService,
+    private navigationService: NavigationService
   ){}
 
   obtenerEnvios(){
@@ -52,6 +54,7 @@ export class VentaComponent implements OnInit,AfterViewInit{
   }
   
   ngOnInit(): void {
+    this.navigationService.triggerNavigationEvent();
     this.obtenerEnvios();
   }
 

@@ -11,9 +11,10 @@
 
     <mat-card-content class="dashboard-car-content">
 
-        <mat-form-field appearance="standard">
+        <mat-form-field appearance="standard" class="busqueda">
             <mat-label>Buscar</mat-label>
             <input matInput (keyup)="aplicarFiltroTabla($event)" #input>
+            <button mat-button matSuffix color="primary" >Buscar</button>
         </mat-form-field>
 
         <div class="mat-elevation-z2">
@@ -22,6 +23,11 @@
                 <ng-container matColumnDef="nombreCompleto">
                     <th mat-header-cell *matHeaderCellDef> Nombre Completo </th>
                     <td mat-cell *matCellDef="let element"> {{element.nombre + " " + element.apellido}} </td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="cedula">
+                    <th mat-header-cell *matHeaderCellDef> Cédula </th>
+                    <td mat-cell *matCellDef="let element"> {{element.cedula}} </td>
                   </ng-container>
 
                   <ng-container matColumnDef="correo">

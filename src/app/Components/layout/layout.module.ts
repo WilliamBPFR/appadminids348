@@ -14,7 +14,8 @@ import { ModalUsuarioComponent } from './Modales/modal-usuario/modal-usuario.com
 import { ModalProductoComponent } from './Modales/modal-producto/modal-producto.component';
 import { ModalDetalleVentaComponent } from './Modales/modal-detalle-venta/modal-detalle-venta.component';
 import { ModalEnvioComponent } from './Modales/modal-envio/modal-envio.component';
-
+import { NavigationService } from 'src/app/Services/navigation.service';
+import { CookieService } from 'ngx-cookie-service';
 
 @NgModule({
   declarations: [
@@ -33,6 +34,10 @@ import { ModalEnvioComponent } from './Modales/modal-envio/modal-envio.component
     CommonModule,
     LayoutRoutingModule,
     SharedModule
+  ],
+  providers:[
+    CookieService,
+    NavigationService
   ]
 })
 export class LayoutModule { }
