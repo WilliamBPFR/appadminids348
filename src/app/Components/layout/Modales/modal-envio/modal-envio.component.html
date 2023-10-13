@@ -1,0 +1,81 @@
+<h2 mat-dialog-title>{{tituloAccion}} Cambio de Estados de Envio #{{idEnvio}}</h2>
+
+
+<!-- Modal para el formulario de registrar usuarios -->
+<mat-dialog-content>
+    <form [formGroup]="formularioUsuario">
+        <mat-grid-list cols="2" rowHeight="80px">
+
+            <mat-grid-tile>
+                <mat-form-field appearance="outline">
+                    <mat-label>ID De la Factura</mat-label>
+                    <input matInput autocomplete="off" formControlName="idFact" readonly="" >
+                    <mat-icon matSuffix>account-box</mat-icon>
+                </mat-form-field>
+
+            </mat-grid-tile>
+            
+            <mat-grid-tile>
+
+                <mat-form-field appearance="outline">
+                    <mat-label>ID Del Cliente</mat-label>
+                    <input matInput autocomplete="off" formControlName="idCliente" readonly="">
+                    <mat-icon matSuffix>account-box</mat-icon>
+                </mat-form-field>
+            </mat-grid-tile>
+
+            <mat-grid-tile>
+                <mat-form-field appearance="outline">
+                    <mat-label>Nombre del Cliente</mat-label>
+                    <input matInput autocomplete="off" formControlName="nombre" readonly="">
+                    <mat-icon matSuffix>account-box</mat-icon>
+                </mat-form-field>
+            </mat-grid-tile>
+            <mat-grid-tile>
+                <mat-form-field appearance="outline">
+                    <mat-label>Correo del Cliente</mat-label>
+                    <input matInput autocomplete="off" formControlName="correo" readonly="">
+                    <mat-icon matSuffix>mail</mat-icon>
+                </mat-form-field>
+            </mat-grid-tile>
+
+            <mat-grid-tile>
+                <mat-form-field appearance="outline">
+                    <mat-label>Teléfono del Cliente</mat-label>
+                    <input matInput autocomplete="off" formControlName="telefono" readonly="">
+                    <mat-icon matSuffix>perm_identity</mat-icon>
+                </mat-form-field>
+            </mat-grid-tile>
+
+            <mat-grid-tile>
+                <mat-form-field appearance="outline">
+                    <mat-label>Dirección de Envío</mat-label>
+                    <input matInput autocomplete="off" formControlName="direccion" readonly="">
+                    <mat-icon matSuffix>perm_identity</mat-icon>
+                </mat-form-field>
+            </mat-grid-tile>
+            
+            <mat-grid-tile colspan="2" >
+                <mat-form-field appearance="outline">
+                    <mat-label>Estado del Envío</mat-label>
+                    <mat-select formControlName="idEstados">
+                        <mat-option *ngFor="let item of listaEstadosEnvios" [value]="item.idEstadoEnvio">{{item.descripcion}}</mat-option>
+                    </mat-select>                   
+                </mat-form-field>
+            </mat-grid-tile>
+
+        </mat-grid-list>
+
+    </form>
+</mat-dialog-content>
+
+
+<!-- Botones de abajo del modal -->
+
+<mat-dialog-actions align="end">
+    <button mat-raised-button mat-dialog-close color="warn"> Volver </button>
+    <button mat-raised-button color="primary"
+    [disabled]="formularioUsuario.invalid"
+    (click)="ActualizarEstado()"
+    >{{botonAccion}}</button>
+</mat-dialog-actions>
