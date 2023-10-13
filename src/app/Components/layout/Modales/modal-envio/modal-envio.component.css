@@ -26,3 +26,11 @@ form{
     font-size: 14px; /* Ajusta el tamaño de fuente según tus necesidades */
 }
 
+.mat-form-field{
+    font-size: 14px;
+    width: 100%;
+}
+.clase_estado{
+    border-radius: 20px;
+    background-color: aqua;
+}

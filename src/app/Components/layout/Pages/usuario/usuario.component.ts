@@ -8,6 +8,7 @@ import { ModalUsuarioComponent } from '../../Modales/modal-usuario/modal-usuario
 import { Usuario } from 'src/app/Interfaces/usuario';
 import { UsuarioService } from 'src/app/Services/usuario.service';
 import { UtilidadService } from 'src/app/Reutilizable/utilidad.service';
+import { NavigationService} from 'src/app/Services/navigation.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -17,7 +18,7 @@ import Swal from 'sweetalert2';
 })
 export class UsuarioComponent implements OnInit, AfterViewInit {
 
-  columnasTabla:string[] = ['nombreCompleto','correo','rolDescripcion','estado','acciones'];
+  columnasTabla:string[] = ['nombreCompleto','cedula','correo','rolDescripcion','estado','acciones'];
   dataInicio:Usuario[]=[];
   dataListaUsuarios = new MatTableDataSource(this.dataInicio);
   @ViewChild(MatPaginator) paginacionTabla! : MatPaginator;
@@ -25,13 +26,16 @@ export class UsuarioComponent implements OnInit, AfterViewInit {
   constructor(
     private dialog: MatDialog,
     private _usuarioServicio: UsuarioService,
-    private _utilidadServicio: UtilidadService
+    private _utilidadServicio: UtilidadService,
+    private navigationService: NavigationService
   ){}
-  
+
+
   obtenerUsuarios(){
     this._usuarioServicio.lista().subscribe({
       next: (data) => {
         if(data.status){
+          console.log(data.value)
           this.dataListaUsuarios.data = data.value;
         }else{
           this._utilidadServicio.mostrarAlerta("No se encontraron datos","Oops!")
@@ -41,6 +45,7 @@ export class UsuarioComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
+    this.navigationService.triggerNavigationEvent();
     this.obtenerUsuarios();
   }
 
@@ -63,7 +68,7 @@ export class UsuarioComponent implements OnInit, AfterViewInit {
   }
 
   editarUsuario(usuario:Usuario){
-    console.log(usuario)
+    console.log("AQUI ES EL EDITAR_USUARIO: " + usuario)
     this.dialog.open(ModalUsuarioComponent, {
       disableClose:true,
       data:usuario
@@ -75,7 +80,7 @@ export class UsuarioComponent implements OnInit, AfterViewInit {
   eliminarUsuario(usuario:Usuario){
     Swal.fire({
       title:"Desea eliminar el usuario?",
-      text: usuario.nombreCompleto,
+      text: usuario.nombre + " " + usuario.apellido,
       icon:"warning",
       confirmButtonColor: '#3085d6',
       confirmButtonText: "Si, eliminar",
@@ -84,7 +89,7 @@ export class UsuarioComponent implements OnInit, AfterViewInit {
       cancelButtonText: "No, volver"
     }).then((resultado)=>{
       if(resultado.isConfirmed){
-        this._usuarioServicio.eliminar(usuario.idUsuario).subscribe({
+        this._usuarioServicio.eliminar(usuario.idEmpleado).subscribe({
           next: (data)=>{
             if(data.status){
               this._utilidadServicio.mostrarAlerta("El usuario fue eliminado", "Listo!");

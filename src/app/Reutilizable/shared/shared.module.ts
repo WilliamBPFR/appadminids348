@@ -16,6 +16,7 @@ import {LayoutModule} from '@angular/cdk/layout';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatButtonModule} from '@angular/material/button';
+
 import {MatIconModule} from '@angular/material/icon';
 import {MatListModule} from '@angular/material/list';
 
@@ -29,6 +30,10 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 
 import {MatNativeDateModule} from '@angular/material/core';
 import {MomentDateModule} from '@angular/material-moment-adapter';
+import { FileValidator } from 'ngx-material-file-input';
+import { NgxColorsModule } from 'ngx-colors';
+
+
 
 @NgModule({
   declarations: [],
@@ -60,7 +65,8 @@ import {MomentDateModule} from '@angular/material-moment-adapter';
     MatAutocompleteModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    MomentDateModule
+    MomentDateModule,
+    NgxColorsModule
 
 
   ],

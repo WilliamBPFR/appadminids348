@@ -20,8 +20,10 @@ export class ProductoService {
     return this.http.get<ResponseApi>(`${this.urlApi}ListaProducto`)
   }
 
-  guardar(request:Producto):Observable<ResponseApi>{
-    return this.http.post<ResponseApi>(`${this.urlApi}Guardar`,request)
+  guardar(productoDTO:Producto):Observable<ResponseApi>{
+    console.log("LLAMADA API:")
+    console.log(productoDTO)
+    return this.http.put<ResponseApi>(`${this.urlApi}CrearProducto`,productoDTO)
   }
 
   editar(request:Producto):Observable<ResponseApi>{
