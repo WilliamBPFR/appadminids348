@@ -44,7 +44,7 @@ export class VentaComponent implements OnInit,AfterViewInit{
     this._envioServicio.lista().subscribe({
       next: (data) => {
         if(data.status){
-          console.log(data.value)
+ console.log(data.value)
           this.dataListaUsuarios.data = data.value;
         }else{
           this._utilidadServicio.mostrarAlerta("No se encontraron datos","Oops!")
